@@ -79,7 +79,7 @@ public class Main {
         manager.removeAllSubtasks();
         manager.removeTasks();
         manager.removeEpics();
-        manager.removeSubtask();
+        manager.removeAllSubtasks();
         System.out.println(manager.getTasks());
         System.out.println(manager.getSubtasks());
         System.out.println(manager.getEpics());

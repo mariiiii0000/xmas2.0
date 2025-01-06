@@ -2,7 +2,7 @@ package model;
 
 import java.util.HashMap;
 
-// YELLOW
+// YELLOW+
 // Между методами рекомендуется делать один отступ
 public class Epic extends Task {
     private HashMap<Long, Subtask> subtasks = new HashMap<>();
@@ -23,13 +23,12 @@ public class Epic extends Task {
 
     }
 
-    // YELLOW
+    // YELLOW+
     // Метод называется addSubtaskS, хотя добавляет всего одну задачу
-    public void addSubtasks(Subtask subtask) {
+    public void addSubtask(Subtask subtask) {
         subtasks.put(subtask.getID(), subtask);
         updateStatus();
     }
-
 
     public void updateStatus() {
         boolean hasNew = false;
@@ -67,7 +66,6 @@ public class Epic extends Task {
         subtasks.clear();
         status = "NEW";
     }
-
 
     public HashMap<Long, Subtask> getSubtasks() {
         return subtasks;

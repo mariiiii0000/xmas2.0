@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-// YELLOW
+// YELLOW+
 // В конструкторах лишние отступы, лучше стараться их избегать и придерживаться чек-стайла
 public class Subtask extends Task {
     private long epicID;
@@ -10,16 +10,12 @@ public class Subtask extends Task {
     public Subtask(String name, String description, String status, long epicID) {
         super(name, description, status);
         this.epicID = epicID;
-
-
     }
 
     public Subtask(long ID, String name, String description, String status, long epicID) {
         super(ID, name, description, status);
         this.ID = ID;
         this.epicID = epicID;
-
-
     }
 
     public long getEpicID() {
@@ -29,7 +25,6 @@ public class Subtask extends Task {
     public void setEpicID(long epicID) {
         this.epicID = epicID;
     }
-
 
     @Override
     public String toString() {

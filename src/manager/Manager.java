@@ -12,11 +12,12 @@ import java.util.HashMap;
 public class Manager {
 
     // GREEN
-    // Инкапсуляция присутствует, круто!
+    // Инкапсуляция присутствует, круто!♥♥♥♥
     private HashMap<Long, Task> taskHashMap = new HashMap<>();
     private HashMap<Long, Subtask> subtaskHashMap = new HashMap<>();
     private HashMap<Long, Epic> epicHashMap = new HashMap<>();
     private long nextID = 1;
+
 
     public Task getTaskByID(long id) {
         return taskHashMap.get(id);
@@ -30,14 +31,10 @@ public class Manager {
         return epicHashMap.get(id);
     }
 
-    // YELLOW
+    // YELLOW+
     // Было бы здорово сгруппировать методы по назначению вместе
-    public void removeAllSubtasks() {
-        subtaskHashMap.clear();
-        for (Epic epic : epicHashMap.values()) {
-            epic.removeSubtasks();
-        }
-    }
+
+
 
 
     public void removeTasksByID(long id) {
@@ -56,6 +53,7 @@ public class Manager {
     }
 
 
+
     public ArrayList<Subtask> getSubtasks() {
         return new ArrayList<>(subtaskHashMap.values());
     }
@@ -69,39 +67,48 @@ public class Manager {
 
     }
 
-    // RED
+
+
+    // RED+
     // Если удалены все эпики, то и все сабтаски должны быть удалены
     public void removeEpics() {
         epicHashMap.clear();
+        subtaskHashMap.clear();
     }
 
-    // RED
+    // RED+
     // Лишний метод. Метод по удалению сабтасков находится уже выше в коде
-    public void removeSubtask() {
+    public void removeAllSubtasks() {
         subtaskHashMap.clear();
+        for (Epic epic : epicHashMap.values()) {
+            epic.removeSubtasks();
+        }
     }
 
     public void removeTasks() {
         taskHashMap.clear();
     }
 
-    // YELLOW
+
+
+    // YELLOW+
     // Необязательно удалять перед тем как путить, потому что сам пут уже заменяет значение
     public void updateTask(Task newTask) {
-        taskHashMap.remove(newTask.getID(), newTask);
         taskHashMap.put(newTask.getID(), newTask);
     }
 
-    // RED
+    // RED+
     // Недостаточно обновить задачу в общем хранилище
     // Ее так же необходимо обновить в самом эпике
     public void updateSubtask(Subtask newSubtask) {
         subtaskHashMap.put(newSubtask.getEpicID(), newSubtask);
         Epic epic = epicHashMap.get(newSubtask.getEpicID());
+        epic.removeSubtaskByID(newSubtask.getID());
+        epic.addSubtask(newSubtask);
         epic.updateStatus();
     }
 
-    // GREEN
+    // GREEN )))
     // Замечательно, метод по обновлению эпика реализован корректно
     // ведь он сохраняет прежние сабтаски старого эпика
     public void updateEpic(Epic newEpic) {
@@ -132,7 +139,7 @@ public class Manager {
         }
         Epic epic = epicHashMap.get(epicID);
         subtask.setID(nextID);
-        epic.addSubtasks(subtask);
+        epic.addSubtask(subtask);
         subtaskHashMap.put(subtask.getID(), subtask);
         nextID++;
     }
@@ -143,5 +150,4 @@ public class Manager {
         epicHashMap.put(epic.getID(), epic);
 
     }
-
 }
