@@ -7,14 +7,16 @@ import model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// YELLOW
+// Между методами рекомендуется делать один отступ
 public class Manager {
 
-
+    // GREEN
+    // Инкапсуляция присутствует, круто!
     private HashMap<Long, Task> taskHashMap = new HashMap<>();
     private HashMap<Long, Subtask> subtaskHashMap = new HashMap<>();
     private HashMap<Long, Epic> epicHashMap = new HashMap<>();
     private long nextID = 1;
-
 
     public Task getTaskByID(long id) {
         return taskHashMap.get(id);
@@ -28,7 +30,8 @@ public class Manager {
         return epicHashMap.get(id);
     }
 
-
+    // YELLOW
+    // Было бы здорово сгруппировать методы по назначению вместе
     public void removeAllSubtasks() {
         subtaskHashMap.clear();
         for (Epic epic : epicHashMap.values()) {
@@ -66,11 +69,14 @@ public class Manager {
 
     }
 
-
+    // RED
+    // Если удалены все эпики, то и все сабтаски должны быть удалены
     public void removeEpics() {
         epicHashMap.clear();
     }
 
+    // RED
+    // Лишний метод. Метод по удалению сабтасков находится уже выше в коде
     public void removeSubtask() {
         subtaskHashMap.clear();
     }
@@ -79,18 +85,25 @@ public class Manager {
         taskHashMap.clear();
     }
 
-
+    // YELLOW
+    // Необязательно удалять перед тем как путить, потому что сам пут уже заменяет значение
     public void updateTask(Task newTask) {
         taskHashMap.remove(newTask.getID(), newTask);
         taskHashMap.put(newTask.getID(), newTask);
     }
 
+    // RED
+    // Недостаточно обновить задачу в общем хранилище
+    // Ее так же необходимо обновить в самом эпике
     public void updateSubtask(Subtask newSubtask) {
         subtaskHashMap.put(newSubtask.getEpicID(), newSubtask);
         Epic epic = epicHashMap.get(newSubtask.getEpicID());
         epic.updateStatus();
     }
 
+    // GREEN
+    // Замечательно, метод по обновлению эпика реализован корректно
+    // ведь он сохраняет прежние сабтаски старого эпика
     public void updateEpic(Epic newEpic) {
         Epic oldEpic = epicHashMap.get(newEpic.getID());
         HashMap<Long, Subtask> subtasks = oldEpic.getSubtasks();

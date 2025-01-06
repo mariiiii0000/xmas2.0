@@ -2,6 +2,8 @@ package model;
 
 import java.util.HashMap;
 
+// YELLOW
+// Между методами рекомендуется делать один отступ
 public class Epic extends Task {
     private HashMap<Long, Subtask> subtasks = new HashMap<>();
 
@@ -21,7 +23,8 @@ public class Epic extends Task {
 
     }
 
-
+    // YELLOW
+    // Метод называется addSubtaskS, хотя добавляет всего одну задачу
     public void addSubtasks(Subtask subtask) {
         subtasks.put(subtask.getID(), subtask);
         updateStatus();
@@ -34,6 +37,8 @@ public class Epic extends Task {
         boolean hasDone = false;
 
         for (Subtask subtask : subtasks.values()) {
+            // YELLOW
+            // Конструкцию switch можно сделать лучше современнее
             switch (subtask.getStatus()) {
                 case "NEW":
                     hasNew = true;
