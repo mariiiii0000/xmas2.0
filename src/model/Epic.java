@@ -2,8 +2,6 @@ package model;
 
 import java.util.HashMap;
 
-// YELLOW+
-// Между методами рекомендуется делать один отступ
 public class Epic extends Task {
     private HashMap<Long, Subtask> subtasks = new HashMap<>();
 
@@ -23,13 +21,15 @@ public class Epic extends Task {
 
     }
 
-    // YELLOW+
-    // Метод называется addSubtaskS, хотя добавляет всего одну задачу
     public void addSubtask(Subtask subtask) {
         subtasks.put(subtask.getID(), subtask);
         updateStatus();
     }
 
+    // YELLOW
+    // Лучше сделать метод приватным и сохранить инкапсуляции
+    // Эпик сам может понимать,
+    // когда ему нужно обновлять статус без внешнего вмешательства
     public void updateStatus() {
         boolean hasNew = false;
         boolean hasInProcess = false;

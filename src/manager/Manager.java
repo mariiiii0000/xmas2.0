@@ -7,12 +7,8 @@ import model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// YELLOW
-// Между методами рекомендуется делать один отступ
 public class Manager {
 
-    // GREEN
-    // Инкапсуляция присутствует, круто!♥♥♥♥
     private HashMap<Long, Task> taskHashMap = new HashMap<>();
     private HashMap<Long, Subtask> subtaskHashMap = new HashMap<>();
     private HashMap<Long, Epic> epicHashMap = new HashMap<>();
@@ -31,12 +27,6 @@ public class Manager {
         return epicHashMap.get(id);
     }
 
-    // YELLOW+
-    // Было бы здорово сгруппировать методы по назначению вместе
-
-
-
-
     public void removeTasksByID(long id) {
         taskHashMap.remove(id);
     }
@@ -52,8 +42,6 @@ public class Manager {
         epicHashMap.remove(id);
     }
 
-
-
     public ArrayList<Subtask> getSubtasks() {
         return new ArrayList<>(subtaskHashMap.values());
     }
@@ -67,17 +55,11 @@ public class Manager {
 
     }
 
-
-
-    // RED+
-    // Если удалены все эпики, то и все сабтаски должны быть удалены
     public void removeEpics() {
         epicHashMap.clear();
         subtaskHashMap.clear();
     }
 
-    // RED+
-    // Лишний метод. Метод по удалению сабтасков находится уже выше в коде
     public void removeAllSubtasks() {
         subtaskHashMap.clear();
         for (Epic epic : epicHashMap.values()) {
@@ -89,28 +71,23 @@ public class Manager {
         taskHashMap.clear();
     }
 
-
-
-    // YELLOW+
-    // Необязательно удалять перед тем как путить, потому что сам пут уже заменяет значение
     public void updateTask(Task newTask) {
         taskHashMap.put(newTask.getID(), newTask);
     }
 
-    // RED+
-    // Недостаточно обновить задачу в общем хранилище
-    // Ее так же необходимо обновить в самом эпике
     public void updateSubtask(Subtask newSubtask) {
         subtaskHashMap.put(newSubtask.getEpicID(), newSubtask);
         Epic epic = epicHashMap.get(newSubtask.getEpicID());
         epic.removeSubtaskByID(newSubtask.getID());
         epic.addSubtask(newSubtask);
+        // YELLOW
+        // addSubtask уже внутри себя вызывает обновление статуса
+        // еще раз вызывать явно излишне
+        // + метод updateStatus можно инкапсулировать и сделать приватным,
+        // чтобы только сам эпик смог его вызывать, когда требуется
         epic.updateStatus();
     }
 
-    // GREEN )))
-    // Замечательно, метод по обновлению эпика реализован корректно
-    // ведь он сохраняет прежние сабтаски старого эпика
     public void updateEpic(Epic newEpic) {
         Epic oldEpic = epicHashMap.get(newEpic.getID());
         HashMap<Long, Subtask> subtasks = oldEpic.getSubtasks();
