@@ -2,8 +2,6 @@ package model;
 
 import java.util.Objects;
 
-// YELLOW+
-// В конструкторах лишние отступы, лучше стараться их избегать и придерживаться чек-стайла
 public class Subtask extends Task {
     private long epicID;
 

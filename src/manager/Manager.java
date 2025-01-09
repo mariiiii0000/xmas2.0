@@ -39,6 +39,11 @@ public class Manager {
     }
 
     public void removeEpicByID(long id) {
+        Epic epic = epicHashMap.get(id);
+        HashMap<Long, Subtask> subtasks = epic.getSubtasks();
+        for (long subtaskId : subtasks.keySet()) {
+            subtaskHashMap.remove(subtaskId);
+        }
         epicHashMap.remove(id);
     }
 
