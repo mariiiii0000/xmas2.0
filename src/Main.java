@@ -1,17 +1,19 @@
-import manager.Manager;
+import manager.InMemoryTaskManager;
+import manager.Status;
+import manager.TaskManager;
 import model.Subtask;
 import model.Task;
 import model.Epic;
 
 public class Main {
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        TaskManager manager = new InMemoryTaskManager();
 
 
-        Task task1 = new Task("task 1", "cook pasta", "NEW");
+        Task task1 = new Task("task 1", "cook pasta", Status.NEW);
         manager.createTask(task1);
         System.out.println(manager.getTasks());
-        Task UpdTask1 = new Task(task1.getID(), "task 2 upd", "feed at 15", "IN PROCESS");
+        Task UpdTask1 = new Task(task1.getID(), "task 2 upd", "feed at 15", Status.IN_PROCESS);
 
 
         Epic epic1 = new Epic("epic 1", "math");
@@ -19,11 +21,11 @@ public class Main {
         Epic updEpic1 = new Epic("epic 2 upd", "eng", epic1.getID());
 
 
-        Subtask subtask1 = new Subtask("subtask 1 ", "312, 311", "new", 2);
+        Subtask subtask1 = new Subtask("subtask 1 ", "312, 311", Status.NEW, 2);
         manager.createSubtask(subtask1);
         Subtask updSubtask1 = new Subtask(subtask1.getID(), "subtask 2 upd", "s.112-113",
-                "new", 2);
-        Subtask subtask3 = new Subtask("subtask 3", "-", "new", 2);
+                Status.NEW, 2);
+        Subtask subtask3 = new Subtask("subtask 3", "-", Status.NEW, 2);
         manager.createSubtask(subtask3);
 
         System.out.println(manager.getEpics());
@@ -59,8 +61,11 @@ public class Main {
         Task updatedTask = manager.getTaskByID(UpdTask1.getID());
         System.out.println(updatedTask);
 
-
         System.out.println("------------------------------   GET SBTSK BY ID");
+
+        System.out.println(manager.getHistory());
+
+        System.out.println("------------------------------");
 
 
         System.out.println(manager.getSubtasksByEpicID(epic1.getID()));
@@ -79,13 +84,14 @@ public class Main {
         manager.removeAllSubtasks();
         manager.removeTasks();
         manager.removeEpics();
-        manager.removeAllSubtasks();
+        manager.removeSubtask();
         System.out.println(manager.getTasks());
         System.out.println(manager.getSubtasks());
         System.out.println(manager.getEpics());
 
 
         System.out.println("------------------------------");
+
 
 
         System.out.println("the end ☺");

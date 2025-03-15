@@ -1,20 +1,22 @@
 package model;
 
+import manager.Status;
+
 import java.util.Objects;
 
 public class Task {
     protected String name;
     protected String description;
     protected long ID;
-    protected String status;
+    protected Status status;
 
-    public Task(String name, String description, String status) {
+    public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
         this.status = status;
     }
 
-    public Task(long ID, String name, String description, String status) {
+    public Task(long ID, String name, String description, Status status) {
         this(name, description, status);
         this.ID = ID;
 
@@ -44,11 +46,11 @@ public class Task {
         this.ID = ID;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

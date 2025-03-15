@@ -1,5 +1,7 @@
 package model;
 
+import manager.Status;
+
 import java.util.HashMap;
 
 public class Epic extends Task {
@@ -7,11 +9,11 @@ public class Epic extends Task {
 
 
     public Epic(String name, String description) {
-        super(name, description, "NEW");
+        super(name, description, Status.NEW);
     }
 
     public Epic(String name, String description, long ID) {
-        super(name, description, "NEW");
+        super(name, description, Status.NEW);
         this.ID = ID;
     }
 
@@ -21,51 +23,48 @@ public class Epic extends Task {
 
     }
 
-    public void addSubtask(Subtask subtask) {
+
+    public void addSubtasks(Subtask subtask) {
         subtasks.put(subtask.getID(), subtask);
         updateStatus();
     }
 
-    // YELLOW
-    // Лучше сделать метод приватным и сохранить инкапсуляции
-    // Эпик сам может понимать,
-    // когда ему нужно обновлять статус без внешнего вмешательства
+
     public void updateStatus() {
         boolean hasNew = false;
         boolean hasInProcess = false;
         boolean hasDone = false;
 
         for (Subtask subtask : subtasks.values()) {
-            // YELLOW
-            // Конструкцию switch можно сделать лучше современнее
             switch (subtask.getStatus()) {
-                case "NEW":
+                case Status.NEW:
                     hasNew = true;
                     break;
-                case "IN PROCESS":
+                case Status.IN_PROCESS:
                     hasInProcess = true;
                     break;
-                case "DONE":
+                case Status.DONE:
                     hasDone = true;
                     break;
             }
 
             if (hasInProcess || (hasNew && hasDone)) {
-                status = "IN PROCESS";
+                status = Status.IN_PROCESS;
             } else if (hasNew) {
-                status = "NEW";
+                status = Status.NEW;
             } else if (hasDone) {
-                status = "DONE";
+                status = Status.DONE;
             } else {
-                status = "NEW";
+                status = Status.NEW;
             }
         }
     }
 
     public void removeSubtasks() {
         subtasks.clear();
-        status = "NEW";
+        status = Status.NEW;
     }
+
 
     public HashMap<Long, Subtask> getSubtasks() {
         return subtasks;
