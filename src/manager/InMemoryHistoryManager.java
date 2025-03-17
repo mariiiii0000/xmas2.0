@@ -1,17 +1,18 @@
 package manager;
 import model.Task;
-import java.util.ArrayList;
+import java.util.LinkedList;
+
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    // YELLOW
+    // YELLOW++++
     // В данном случае больше подойдет LinkedList,
     // так как часто происходит удаление и добавление начальных и конечных элементов
     // List<Task> history = new LinkedList<>();
 
-    // RED
+    // RED++
     // Отсутствует инкапсуляция, тк поле является публичным
-    public List<Task> history = new ArrayList<>();
+    private final List<Task> history = new LinkedList<>();
     private final int SIZE = 10;
 
     // YELLOW

@@ -9,10 +9,9 @@ import java.util.Map;
 import java.util.ArrayList;
 
 public class InMemoryTaskManager implements TaskManager {
-    // RED
+    // RED+
     // Мы создали утилитарный класс для того, чтобы он здесь возвращал там менеджера нужного
-    // = Managers.getDefaultHistory();
-    HistoryManager historyManager = new InMemoryHistoryManager();
+    private final HistoryManager historyManager= Managers.getDefaultHistory();
     private final Map<Long, Task> taskHashMap = new HashMap<>();
     private final Map<Long, Subtask> subtaskHashMap = new HashMap<>();
     private final Map<Long, Epic> epicHashMap = new HashMap<>();
@@ -61,25 +60,25 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeEpicByID(long id) {
         epicHashMap.remove(id);
     }
-    // RED
+    // RED+
     // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
     // Чтобы не привязываться к конкретному типу
     @Override
-    public ArrayList<Subtask> getSubtasks() {
+    public List<Subtask> getSubtasks() {
         return new ArrayList<>(subtaskHashMap.values());
     }
-    // RED
+    // RED+
     // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
     // Чтобы не привязываться к конкретному типу
     @Override
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epicHashMap.values());
     }
-    // RED
+    // RED+
     // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
     // Чтобы не привязываться к конкретному типу
     @Override
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(taskHashMap.values());
 
     }
@@ -115,7 +114,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateEpic(Epic newEpic) {
         Epic oldEpic = epicHashMap.get(newEpic.getID());
-        HashMap<Long, Subtask> subtasks = oldEpic.getSubtasks();
+        Map<Long, Subtask> subtasks = oldEpic.getSubtasks();
         newEpic.setSubtasks(subtasks);
         epicHashMap.put(newEpic.getID(), newEpic);
     }

@@ -1,15 +1,15 @@
 package model;
 
 import manager.Status;
-
 import java.util.HashMap;
+import java.util.Map;
 
 public class Epic extends Task {
-    // RED
+    // RED++
     // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
     // Чтобы не привязываться к конкретному типу
     // Здесь подойдет просто Map
-    private HashMap<Long, Subtask> subtasks = new HashMap<>();
+    private Map<Long, Subtask> subtasks = new HashMap<>();
 
 
     public Epic(String name, String description) {
@@ -70,11 +70,11 @@ public class Epic extends Task {
     }
 
 
-    public HashMap<Long, Subtask> getSubtasks() {
+    public Map<Long, Subtask> getSubtasks() {
         return subtasks;
     }
 
-    public void setSubtasks(HashMap<Long, Subtask> subtasks) {
+    public void setSubtasks(Map<Long, Subtask> subtasks) {
         this.subtasks = subtasks;
         updateStatus();
     }

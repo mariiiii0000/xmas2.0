@@ -33,8 +33,6 @@ public class Main {
 
         System.out.println("------------------------------   GET BY ID");
 
-        System.out.println(manager.getSubtaskByID(subtask3.getID()));
-
         System.out.println(manager.getSubtaskByID(subtask1.getID()));
 
         System.out.println(manager.getTaskByID(task1.getID()));
