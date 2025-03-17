@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.ArrayList;
 
 public class InMemoryTaskManager implements TaskManager {
-
+    // RED
+    // Мы создали утилитарный класс для того, чтобы он здесь возвращал там менеджера нужного
+    // = Managers.getDefaultHistory();
     HistoryManager historyManager = new InMemoryHistoryManager();
     private final Map<Long, Task> taskHashMap = new HashMap<>();
     private final Map<Long, Subtask> subtaskHashMap = new HashMap<>();
@@ -59,17 +61,23 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeEpicByID(long id) {
         epicHashMap.remove(id);
     }
-
+    // RED
+    // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
+    // Чтобы не привязываться к конкретному типу
     @Override
     public ArrayList<Subtask> getSubtasks() {
         return new ArrayList<>(subtaskHashMap.values());
     }
-
+    // RED
+    // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
+    // Чтобы не привязываться к конкретному типу
     @Override
     public ArrayList<Epic> getEpics() {
         return new ArrayList<>(epicHashMap.values());
     }
-
+    // RED
+    // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
+    // Чтобы не привязываться к конкретному типу
     @Override
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(taskHashMap.values());
