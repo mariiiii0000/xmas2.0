@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Epic extends Task {
-    // RED++
-    // Уже изучили полиморфизм, поэтому следует объявлять переменные типом интерфейса или абстрактного класса
-    // Чтобы не привязываться к конкретному типу
-    // Здесь подойдет просто Map
+
     private Map<Long, Subtask> subtasks = new HashMap<>();
 
 
