@@ -40,6 +40,10 @@ public class Main {
 
         System.out.println(manager.getEpicByID(epic1.getID()));
 
+        System.out.println("------------------------------   GET HISTORY");
+
+        System.out.println(manager.getHistory());
+
         System.out.println("-------------------------------   UPDATE");
 
         System.out.println("BEFORE");
@@ -61,11 +65,9 @@ public class Main {
         Task updatedTask = manager.getTaskByID(UpdTask1.getID());
         System.out.println(updatedTask);
 
-        System.out.println("------------------------------   GET SBTSK BY ID");
 
-        System.out.println(manager.getHistory());
 
-        System.out.println("------------------------------");
+        System.out.println("------------------------------    GET SBTSK BY ID");
 
 
         System.out.println(manager.getSubtasksByEpicID(epic1.getID()));

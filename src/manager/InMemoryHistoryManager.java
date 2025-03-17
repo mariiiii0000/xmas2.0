@@ -5,12 +5,18 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    public List<Task> history = new ArrayList<>(size);
-    private static final int size = 10;
+    public List<Task> history = new ArrayList<>();
+    private final int SIZE = 10;
 
     @Override
     public void add(Task task) {
-        history.add(task);
+        if (history.size() < SIZE)
+            history.add(task);
+        else {
+            history.removeFirst();
+            history.add(task);
+
+        }
     }
 
     @Override
