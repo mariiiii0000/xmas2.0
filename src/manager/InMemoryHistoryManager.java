@@ -3,14 +3,19 @@ import model.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+// RED
+// Лишние импорты
 import java.util.LinkedList;
 
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
+    // RED
+    // отсутствует инкапсуляция и еще один необходимый модификатор
     HashMap<Long, Node> tasks = new HashMap<>();
-
+    // RED
+    // отсутствует инкапсуляция и еще один необходимый модификатор
     CustomLinkedList<Task> tasksLinkedList = new CustomLinkedList<>();
 
     public void add(Task task){
@@ -35,6 +40,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     public class CustomLinkedList<T>{
         private Node<T> head;
         private Node<T> tail;
+        // RED
+        // Неиспользуемое поле можно удалить
         private T element;
         private int size;
 
@@ -73,6 +80,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
             if (node == tail && node == head){
                 head = null;
+                // RED
+                // tail тут тоже должен быть null
                 size--;
                 return;
             } else if (node == tail){

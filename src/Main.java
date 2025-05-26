@@ -11,39 +11,52 @@ public class Main {
 
         Task task1 = new Task("COOK", "LUNCH", Status.NEW);
         Task task2 = new Task("CAT", "FEED AT 15", Status.NEW);
+        Task updTask1 = new Task(1, "COOK", "LUNCH", Status.NEW);
+
+        // RED
+        // Сценарий, при котором случается баг
+        // (проблема в методе обновления, задачу необходимо обновлять так же в истории, а то произойдет утечка)
         manager.createTask(task1);
-        manager.createTask(task2);
-
-        Epic epic1 = new Epic("SCHOOL","MATH");
-        manager.createEpic(epic1);
-        long epID = epic1.getID();
-        Subtask subtask11 = new Subtask("DO HW", "312, 313", Status.NEW, epID);
-        Subtask subtask21 = new Subtask("LEARN", "RULES", Status.NEW, epID);
-        Subtask subtask31 = new Subtask("PRACTICE", "PROBLEMS 1-10", Status.NEW, epID);
-        manager.createSubtask(subtask11);
-        manager.createSubtask(subtask21);
-        manager.createSubtask(subtask31);
-
-        Epic epic2 = new Epic("COURSE", "ENGLISH");
-        manager.createEpic(epic2);
-
-        System.out.println(manager.getEpicByID(epic1.getID()));
-        System.out.println(manager.getTaskByID(task2.getID()));
-        System.out.println(manager.getEpicByID(epic2.getID()));
-        System.out.println(manager.getTaskByID(task1.getID()));
-        manager.removeTasksByID(task2.getID());
-        System.out.println(manager.getTaskByID(task2.getID()));
-
-        System.out.println("----------------------------- HISTORY");
+        manager.getTaskByID(1);
+        System.out.println(manager.getHistory());
+        manager.updateTask(updTask1);
+        System.out.println(manager.getHistory());
+        manager.removeTasks();
         System.out.println(manager.getHistory());
 
-        manager.removeEpicByID(epic1.getID());
-        System.out.println(manager.getEpicByID(epic1.getID()));
-        System.out.println(manager.getHistory());
-        manager.getEpics();
-        System.out.println(manager.getHistory());
-        manager.removeEpics();
-        System.out.println(manager.getHistory());
+//        manager.createTask(task1);
+//        manager.createTask(task2);
+//
+//        Epic epic1 = new Epic("SCHOOL","MATH");
+//        manager.createEpic(epic1);
+//        long epID = epic1.getID();
+//        Subtask subtask11 = new Subtask("DO HW", "312, 313", Status.NEW, epID);
+//        Subtask subtask21 = new Subtask("LEARN", "RULES", Status.NEW, epID);
+//        Subtask subtask31 = new Subtask("PRACTICE", "PROBLEMS 1-10", Status.NEW, epID);
+//        manager.createSubtask(subtask11);
+//        manager.createSubtask(subtask21);
+//        manager.createSubtask(subtask31);
+//
+//        Epic epic2 = new Epic("COURSE", "ENGLISH");
+//        manager.createEpic(epic2);
+//
+//        System.out.println(manager.getEpicByID(epic1.getID()));
+//        System.out.println(manager.getTaskByID(task2.getID()));
+//        System.out.println(manager.getEpicByID(epic2.getID()));
+//        System.out.println(manager.getTaskByID(task1.getID()));
+//        manager.removeTasksByID(task2.getID());
+//        System.out.println(manager.getTaskByID(task2.getID()));
+//
+//        System.out.println("----------------------------- HISTORY");
+//        System.out.println(manager.getHistory());
+//
+//        manager.removeEpicByID(epic1.getID());
+//        System.out.println(manager.getEpicByID(epic1.getID()));
+//        System.out.println(manager.getHistory());
+//        manager.getEpics();
+//        System.out.println(manager.getHistory());
+//        manager.removeEpics();
+//        System.out.println(manager.getHistory());
 
 
 

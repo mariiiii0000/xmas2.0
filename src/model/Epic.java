@@ -38,13 +38,13 @@ public class Epic extends Task {
 
         for (Subtask subtask : subtasks.values()) {
             switch (subtask.getStatus()) {
-                case Status.NEW:
+                case NEW:
                     hasNew = true;
                     break;
-                case Status.IN_PROCESS:
+                case IN_PROCESS:
                     hasInProcess = true;
                     break;
-                case Status.DONE:
+                case DONE:
                     hasDone = true;
                     break;
             }

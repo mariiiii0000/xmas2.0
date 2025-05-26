@@ -45,7 +45,8 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         }
     }
-
+    // RED
+    // Задачи также неодходимо удалять из истории
     @Override
     public void removeAllSubtasks() {
         subtaskHashMap.clear();
@@ -65,11 +66,15 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeSubtaskByID(long id) {
     Subtask subtask = subtaskHashMap.get(id);
     Epic epic = epicHashMap.get(subtask.getEpicID());
+    // RED
+    // Что-то с табуляцией
         epic.removeSubtaskByID(id);
         subtaskHashMap.remove(id);
         historyManager.remove(id);
 }
-
+    // RED
+    // Подзадачи также неодходимо удалять
+    // и из истории тоже
     @Override
     public void removeEpicByID(long id) {
         epicHashMap.remove(id);
@@ -100,6 +105,9 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(taskHashMap.values());
     }
 
+    // RED
+    // Подзадачи также неодходимо удалять (они не могут быть без эпика)
+    // и удалять из истории
     @Override
     public void removeEpics() {
         for (Epic epic : epicHashMap.values()){
@@ -124,12 +132,16 @@ public class InMemoryTaskManager implements TaskManager {
         taskHashMap.clear();
     }
 
+    // RED
+    // Так же необходимо обновлять задачу в истории, а то будет утечка данных
     @Override
     public void updateTask(Task newTask) {
         taskHashMap.remove(newTask.getID(), newTask);
         taskHashMap.put(newTask.getID(), newTask);
     }
 
+    // RED
+    // Так же необходимо обновлять задачу в истории, а то будет утечка данных
     @Override
     public void updateSubtask(Subtask newSubtask) {
         subtaskHashMap.put(newSubtask.getEpicID(), newSubtask);
@@ -137,6 +149,8 @@ public class InMemoryTaskManager implements TaskManager {
         epic.updateStatus();
     }
 
+    // RED
+    // Так же необходимо обновлять задачу в истории, а то будет утечка данных
     @Override
     public void updateEpic(Epic newEpic) {
         Epic oldEpic = epicHashMap.get(newEpic.getID());
