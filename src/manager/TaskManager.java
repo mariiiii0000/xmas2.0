@@ -32,7 +32,7 @@ public interface TaskManager {
 
     void removeEpics();
 
-    void removeSubtask();
+    void removeSubtasks();
 
     void removeTasks();
 
