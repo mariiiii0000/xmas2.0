@@ -57,15 +57,13 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeSubtaskByID(long id) {
         Subtask subtask = subtaskHashMap.get(id);
         Epic epic = epicHashMap.get(subtask.getEpicID());
-        // RED+++++
-        // Что-то с табуляцией
         epic.removeSubtaskByID(id);
         subtaskHashMap.remove(id);
         historyManager.remove(id);
     }
-    // RED++++
-    // Подзадачи также неодходимо удалять
-    // и из истории тоже
+
+    // RED
+    // Баг с удалением подзадач
     @Override
     public void removeEpicByID(long id) {
         epicHashMap.remove(id);
@@ -101,11 +99,11 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(taskHashMap.values());
     }
 
-    // RED+++
-    // Подзадачи также неодходимо удалять (они не могут быть без эпика)
-    // и удалять из истории
     @Override
     public void removeEpics() {
+        // YELLOW
+        // можно существенно упростить код, написав в классе history manager метод,
+        // который будет полностью очищать историю задач
         for (Epic epic : epicHashMap.values()){
             historyManager.remove(epic.getID());
         }
@@ -124,8 +122,6 @@ public class InMemoryTaskManager implements TaskManager {
         subtaskHashMap.clear();
     }
 
-    // RED++++++
-    // Задачи также неодходимо удалять из истории
     @Override
     public void removeAllSubtasks() {
         subtaskHashMap.clear();
@@ -145,8 +141,6 @@ public class InMemoryTaskManager implements TaskManager {
         taskHashMap.clear();
     }
 
-    // RED++++++
-    // Так же необходимо обновлять задачу в истории, а то будет утечка данных
     @Override
     public void updateTask(Task newTask) {
         taskHashMap.remove(newTask.getID(), newTask);
@@ -155,8 +149,6 @@ public class InMemoryTaskManager implements TaskManager {
         historyManager.add(newTask);
     }
 
-    // RED+++++
-    // Так же необходимо обновлять задачу в истории, а то будет утечка данных
     @Override
     public void updateSubtask(Subtask newSubtask) {
         subtaskHashMap.remove(newSubtask.getEpicID(), newSubtask);
@@ -167,8 +159,6 @@ public class InMemoryTaskManager implements TaskManager {
         historyManager.add(newSubtask);
     }
 
-    // RED+++++
-    // Так же необходимо обновлять задачу в истории, а то будет утечка данных
     @Override
     public void updateEpic(Epic newEpic) {
         Epic oldEpic = epicHashMap.get(newEpic.getID());

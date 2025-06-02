@@ -9,6 +9,16 @@ public class Main {
     public static void main(String[] args) {
         TaskManager manager = new InMemoryTaskManager();
 
+        // RED
+        // Сценарий, при котором случается баг
+        Epic epic1 = new Epic("SCHOOL","MATH");
+        manager.createEpic(epic1);
+        long epID = epic1.getID();
+        Subtask subtask11 = new Subtask("DO HW", "312, 313", Status.NEW, epID);
+        manager.createSubtask(subtask11);
+        manager.removeEpicByID(1);
+        System.out.println(manager.getSubtasks());
+
 //        Task task1 = new Task("COOK", "LUNCH", Status.NEW);
 //        Task task2 = new Task("CAT", "FEED AT 15", Status.NEW);
 //        Task updTask1 = new Task(1, "COOK", "DINNER", Status.NEW);
@@ -27,14 +37,6 @@ public class Main {
 //        manager.createTask(task1);
 //        manager.createTask(task2);
 //
-//        Epic epic1 = new Epic("SCHOOL","MATH");
-//        manager.createEpic(epic1);
-//        long epID = epic1.getID();
-//        Subtask subtask11 = new Subtask("DO HW", "312, 313", Status.NEW, epID);
-//        manager.createSubtask(subtask11);
-//        Subtask subtask21 = new Subtask("LEARN", "RULES", Status.NEW, epID);
-////        Subtask subtaskUPD = new Subtask(subtask11.getID(), "PRACTICE", "PROBLEMS 1-10", Status.NEW, epID);
-//        manager.createSubtask(subtask21);
 
 
 //        manager.getSubtaskByID(subtask11.getID());
