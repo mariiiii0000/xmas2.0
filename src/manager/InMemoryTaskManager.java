@@ -66,12 +66,12 @@ public class InMemoryTaskManager implements TaskManager {
     // Баг с удалением подзадач
     @Override
     public void removeEpicByID(long id) {
-        epicHashMap.remove(id);
-        ArrayList<Subtask> epSubtasks = getSubtasksByEpicID(id);
+        List<Subtask> epSubtasks = getSubtasksByEpicID(id);
         for (Subtask subtask : epSubtasks) {
-            subtaskHashMap.remove(subtask);
+            subtaskHashMap.remove(subtask.getID());
             historyManager.remove(subtask.getID());
         }
+        epicHashMap.remove(id);
         historyManager.remove(id);
     }
 
