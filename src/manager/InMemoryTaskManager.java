@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
-    private final Map<Long, Task> taskHashMap = new HashMap<>();
-    private final Map<Long, Subtask> subtaskHashMap = new HashMap<>();
-    private final Map<Long, Epic> epicHashMap = new HashMap<>();
-    private long nextID = 1;
+    protected final HistoryManager historyManager = Managers.getDefaultHistory();
+    protected final Map<Long, Task> taskHashMap = new HashMap<>();
+    protected final Map<Long, Subtask> subtaskHashMap = new HashMap<>();
+    protected final Map<Long, Epic> epicHashMap = new HashMap<>();
+    protected long nextID = 1;
 
     @Override
     public Task getTaskByID(long id) {
@@ -62,8 +62,6 @@ public class InMemoryTaskManager implements TaskManager {
         historyManager.remove(id);
     }
 
-    // RED
-    // Баг с удалением подзадач
     @Override
     public void removeEpicByID(long id) {
         List<Subtask> epSubtasks = getSubtasksByEpicID(id);
@@ -101,9 +99,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeEpics() {
-        // YELLOW
-        // можно существенно упростить код, написав в классе history manager метод,
-        // который будет полностью очищать историю задач
         for (Epic epic : epicHashMap.values()){
             historyManager.remove(epic.getID());
         }
@@ -170,7 +165,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasksByEpicID(long epicID) {
+    public List<Subtask> getSubtasksByEpicID(long epicID) {
         Epic epic = epicHashMap.get(epicID);
         return new ArrayList<>(epic.getSubtasks().values());
     }

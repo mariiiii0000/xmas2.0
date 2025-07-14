@@ -1,3 +1,4 @@
+import manager.FileBackedTaskManager;
 import manager.InMemoryTaskManager;
 import manager.Status;
 import manager.TaskManager;
@@ -7,25 +8,43 @@ import model.Epic;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = new InMemoryTaskManager();
+        TaskManager manager = new FileBackedTaskManager("resources/manager 1/dataTo.csv", "resources/manager 1/dataFrom");
 
-        // RED
-        // Сценарий, при котором случается баг
         Epic epic1 = new Epic("SCHOOL","MATH");
         manager.createEpic(epic1);
         long epID = epic1.getID();
-        Subtask subtask11 = new Subtask("DO HW", "312, 313", Status.NEW, epID);
+        manager.getEpicByID(epID);
+        Subtask subtask11 = new Subtask("DO HW", "312 313", Status.NEW, epID);
         manager.createSubtask(subtask11);
-        manager.removeEpicByID(1);
-        System.out.println(manager.getSubtasks());
+        manager.getSubtaskByID(subtask11.getID());
+        Task task1 = new Task("COOK", "LUNCH", Status.NEW);
+        manager.createTask(task1);
+        manager.getTaskByID(task1.getID());
+//        Task updTask1 = new Task(1, "COOK", "DINNER", Status.NEW);
+//        manager.getTaskByID(updTask1.getID());
+//        manager.updateTask(updTask1);
+        System.out.println(manager.getHistory());
+
+        TaskManager manager1 = FileBackedTaskManager.loadFromFile("resources/manager 2/dataTo","resources/manager 2/dataFrom.csv");
+        System.out.println(manager1.getHistory());
+//        System.out.println(manager1.getTaskByID(task1.getID()));
+
+
+//        Task updTask1 = new Task(1, "COOK", "DINNER", Status.NEW);
+//        manager.getTaskByID(updTask1.getID());
+//        manager.updateTask(updTask1);
+
+
+
+
+
+//        manager.removeEpicByID(1);
+//        System.out.println(manager.getSubtasks());
 
 //        Task task1 = new Task("COOK", "LUNCH", Status.NEW);
 //        Task task2 = new Task("CAT", "FEED AT 15", Status.NEW);
-//        Task updTask1 = new Task(1, "COOK", "DINNER", Status.NEW);
 ////
-//        // RED
-//        // Сценарий, при котором случается баг
-//        // (проблема в методе обновления, задачу необходимо обновлять так же в истории, а то произойдет утечка)
+//
 //        manager.createTask(task1);
 //        manager.getTaskByID(1);
 //        System.out.println(manager.getHistory());
