@@ -3,6 +3,8 @@ package manager;
 import model.Epic;
 import model.Subtask;
 import model.Task;
+import model.TaskNotFoundException;
+
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -138,7 +140,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(Task newTask) {
-        taskHashMap.remove(newTask.getID(), newTask);
+        if (!taskHashMap.containsKey(newTask.getID())){
+            throw new TaskNotFoundException("ID " + newTask.getID() + " is not found.");
+        }
         taskHashMap.put(newTask.getID(), newTask);
         historyManager.remove(newTask.getID());
         historyManager.add(newTask);
@@ -146,7 +150,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubtask(Subtask newSubtask) {
-        subtaskHashMap.remove(newSubtask.getEpicID(), newSubtask);
+        if (!taskHashMap.containsKey(newSubtask.getID())){
+            throw new TaskNotFoundException("ID " + newSubtask.getID() + " is not found.");
+        }
         subtaskHashMap.put(newSubtask.getEpicID(), newSubtask);
         Epic epic = epicHashMap.get(newSubtask.getEpicID());
         epic.updateStatus();
@@ -156,6 +162,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateEpic(Epic newEpic) {
+        if (!taskHashMap.containsKey(newEpic.getID())){
+            throw new TaskNotFoundException("ID " + newEpic.getID() + " is not found.");
+        }
         Epic oldEpic = epicHashMap.get(newEpic.getID());
         Map<Long, Subtask> subtasks = oldEpic.getSubtasks();
         newEpic.setSubtasks(subtasks);
@@ -172,7 +181,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createTask(Task task) {
-        task.setID(nextID);
+        if (task.getID() == 0){
+            task.setID(nextID);
+        }
         taskHashMap.put(task.getID(), task);
         nextID++;
     }
@@ -185,7 +196,9 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
         Epic epic = epicHashMap.get(epicID);
-        subtask.setID(nextID);
+        if (subtask.getID() == 0){
+            subtask.setID(nextID);
+        }
         epic.addSubtasks(subtask);
         subtaskHashMap.put(subtask.getID(), subtask);
         nextID++;
@@ -193,10 +206,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createEpic(Epic epic) {
-        epic.setID(nextID);
+        if (epic.getID() == 0){
+            epic.setID(nextID);
+        }
         nextID++;
         epicHashMap.put(epic.getID(), epic);
-
     }
 
     @Override

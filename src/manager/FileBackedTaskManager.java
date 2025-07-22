@@ -5,7 +5,9 @@ import model.Epic;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
@@ -54,6 +56,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public static FileBackedTaskManager loadFromFile(String pathTo, String pathFrom){
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(pathTo, pathFrom);
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathFrom))) {
+            Map<Long, Task> tasks = new HashMap<>();
             bufferedReader.readLine();
             String line = bufferedReader.readLine();
             if (line == null){
@@ -66,14 +69,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     case TypesOfTasks.TASK:
                         Task task = taskParser.toTask(line);
                         fileBackedTaskManager.createTask(task);
+                        tasks.put(task.getID(), task);
                         break;
                     case TypesOfTasks.SUBTASK:
                         Subtask subtask = taskParser.toSubtask(line);
                         fileBackedTaskManager.createSubtask(subtask);
+                        tasks.put(subtask.getID(), subtask);
                         break;
                     case TypesOfTasks.EPIC:
                         Epic epic = taskParser.toEpic(line);
                         fileBackedTaskManager.createEpic(epic);
+                        tasks.put(epic.getID(), epic);
                         break;
                     default:
                         System.out.println("Неизвестный тип задачи.");
@@ -82,7 +88,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 line = bufferedReader.readLine();
             }
             line = bufferedReader.readLine();
-            historyFromString(line);
+            List<Long> ids = historyFromString(line);
+            for (Long id : ids){
+                fileBackedTaskManager.historyManager.add(tasks.get(id));
+            }
+            fileBackedTaskManager.save(fileBackedTaskManager.pathTo);
         } catch (IOException e) {
             System.out.println("Ошибка во время чтения файла.");
         }

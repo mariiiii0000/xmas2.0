@@ -1,6 +1,0 @@
-type,id,name,description,status
-EPIC,1,SCHOOL,MATH,NEW
-TASK,3,COOK,LUNCH,NEW
-SUBTASK,2,DO HW,312 313,NEW,1
-
-1,2,3

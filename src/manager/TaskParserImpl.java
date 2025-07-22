@@ -58,7 +58,8 @@ public class TaskParserImpl implements TaskParser {
         String name = data[2];
         String description = data[3];
         long ID = Long.parseLong(data[1]);
-        Subtask subtask = new Subtask(ID, name, description, status);
+        long epicID = Long.parseLong(data[5]);
+        Subtask subtask = new Subtask(ID, name, description, status, epicID);
         return subtask;
     }
 
