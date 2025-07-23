@@ -30,9 +30,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return pathFrom;
     }
 
-    // RED
+    // RED+++++++
     // Отсутствует инкапсуляция
-    String historyToString(){
+    private String historyToString(){
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : historyManager.getHistory()) {
             long id = task.getID();
@@ -44,9 +44,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return stringBuilder.toString();
     }
 
-    // RED
+    // RED++++
     // Отсутствует инкапсуляция
-    static List<Long> historyFromString(String value){
+    private static List<Long> historyFromString(String value){
         String[] values = value.split(",");
         List<Long> ids = new ArrayList<>();
 

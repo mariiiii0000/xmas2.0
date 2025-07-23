@@ -4,14 +4,15 @@ public class Managers {
 
     private Managers() {
     }
-
-    // RED
+    // RED++++
     // Необходимо здесь в фабрике менеджеров написать метод создания нового менеджера
     // и через этот класс получать новые объекты менеджера
-    static public TaskManager getDefault(){
+
+    public static TaskManager createTaskManager() {
         return new InMemoryTaskManager();
     }
-    static public HistoryManager getDefaultHistory(){
+
+    public static HistoryManager createHistoryManager() {
         return new InMemoryHistoryManager();
     }
 }
