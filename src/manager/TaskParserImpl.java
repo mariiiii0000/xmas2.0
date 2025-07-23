@@ -49,8 +49,7 @@ public class TaskParserImpl implements TaskParser {
         String name = data[2];
         String description = data[3];
         Status status = Status.NEW;
-        Task task = new Task(ID, name, description, status);
-        return task;
+        return new Task(ID, name, description, status);
     }
 
     @Override
@@ -61,17 +60,15 @@ public class TaskParserImpl implements TaskParser {
         String description = data[3];
         long ID = Long.parseLong(data[1]);
         long epicID = Long.parseLong(data[5]);
-        Subtask subtask = new Subtask(ID, name, description, status, epicID);
-        return subtask;
+        return new Subtask(ID, name, description, status, epicID);
     }
 
     @Override
     public Epic toEpic(String string) {
         String[] data = string.split(",");
-        Long ID = Long.parseLong(data[1]);
+        long ID = Long.parseLong(data[1]);
         String name = data[2];
         String description = data[3];
-        Epic epic = new Epic(name, description, ID);
-        return epic;
+        return new Epic(name, description, ID);
     }
 }

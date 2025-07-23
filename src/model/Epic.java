@@ -38,15 +38,9 @@ public class Epic extends Task {
 
         for (Subtask subtask : subtasks.values()) {
             switch (subtask.getStatus()) {
-                case NEW:
-                    hasNew = true;
-                    break;
-                case IN_PROCESS:
-                    hasInProcess = true;
-                    break;
-                case DONE:
-                    hasDone = true;
-                    break;
+                case NEW -> hasNew = true;
+                case IN_PROCESS -> hasInProcess = true;
+                case DONE -> hasDone = true;
             }
 
             if (hasInProcess || (hasNew && hasDone)) {
