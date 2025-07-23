@@ -8,14 +8,14 @@ import model.Epic;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = new FileBackedTaskManager("resources/manager 1/dataTo.csv", "resources/manager 1/dataFrom");
-
-        Epic epic1 = new Epic("SCHOOL","MATH");
+//        TaskManager manager = new FileBackedTaskManager("resources/manager 1/dataTo.csv", "resources/manager 1/dataFrom");
+//
+//        Epic epic1 = new Epic("SCHOOL","MATH");
 //        manager.createEpic(epic1);
 //        manager.getEpicByID(epID);
 //        manager.createSubtask(subtask11);
 //        manager.getSubtaskByID(subtask11.getID());
-        Task task1 = new Task("COOK", "LUNCH", Status.NEW);
+//        Task task1 = new Task("COOK", "LUNCH", Status.NEW);
 //        manager.createTask(task1);
 //        manager.getTaskByID(task1.getID());
 //        Task updTask1 = new Task(3, "COOK", "DINNER", Status.NEW);
@@ -24,14 +24,15 @@ public class Main {
 //        System.out.println(manager.getHistory());
 
         TaskManager manager1 = FileBackedTaskManager.loadFromFile("resources/manager 2/dataTo","resources/manager 2/dataFrom.csv");
+        System.out.println(manager1.getSubtasks());
 //        manager1.removeTasksByID(task1.getID());
 //        manager1.removeSubtasks();
-        manager1.createTask(task1);
-        manager1.getTaskByID(task1.getID());
-        manager1.createEpic(epic1);
-        long epID = epic1.getID();
-        Subtask subtask11 = new Subtask("DO HW", "312 313", Status.NEW, epID);
-        manager1.createSubtask(subtask11);
+//        manager1.createTask(task1);
+//        manager1.getTaskByID(task1.getID());
+//        manager1.createEpic(epic1);
+//        long epID = epic1.getID();
+//        Subtask subtask11 = new Subtask("DO HW", "312 313", Status.NEW, epID);
+//        manager1.createSubtask(subtask11);
 //        manager1.updateTask(updTask1);
 //        System.out.println(manager1.getHistory());
 //        System.out.println(manager1.getTaskByID(task1.getID()));

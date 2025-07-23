@@ -30,6 +30,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return pathFrom;
     }
 
+    // RED
+    // Отсутствует инкапсуляция
     String historyToString(){
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : historyManager.getHistory()) {
@@ -42,6 +44,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return stringBuilder.toString();
     }
 
+    // RED
+    // Отсутствует инкапсуляция
     static List<Long> historyFromString(String value){
         String[] values = value.split(",");
         List<Long> ids = new ArrayList<>();
@@ -65,25 +69,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             while (!line.isBlank()){
                 String[] data = line.split(",");
                 TypesOfTasks typeOfTask = TypesOfTasks.valueOf(data[0]);
-                switch (typeOfTask){
-                    case TypesOfTasks.TASK:
+                switch (typeOfTask) {
+                    case TASK -> {
                         Task task = taskParser.toTask(line);
                         fileBackedTaskManager.createTask(task);
                         tasks.put(task.getID(), task);
-                        break;
-                    case TypesOfTasks.SUBTASK:
+                    }
+                    case SUBTASK -> {
                         Subtask subtask = taskParser.toSubtask(line);
                         fileBackedTaskManager.createSubtask(subtask);
                         tasks.put(subtask.getID(), subtask);
-                        break;
-                    case TypesOfTasks.EPIC:
+                    }
+                    case EPIC -> {
                         Epic epic = taskParser.toEpic(line);
                         fileBackedTaskManager.createEpic(epic);
                         tasks.put(epic.getID(), epic);
-                        break;
-                    default:
-                        System.out.println("Неизвестный тип задачи.");
-                        break;
+                    }
+                    default -> System.out.println("Неизвестный тип задачи.");
                 }
                 line = bufferedReader.readLine();
             }
@@ -242,7 +244,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             stringBuilder.append(historyToString());
             fileWriter.write(stringBuilder.toString());
 
-        }catch (IOException e){
+        } catch (IOException e){
             System.out.println("Ошибка во время чтения файла.");
         }
     }

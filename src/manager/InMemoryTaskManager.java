@@ -23,6 +23,8 @@ public class InMemoryTaskManager implements TaskManager {
         if (taskHashMap.containsKey(id)){
             historyManager.add(taskHashMap.get(id));
             return taskHashMap.get(id);
+        // YELLOW
+        // Лучше выкидывать проверяемое исключение TaskNotFoundException
         } else {
             return null;
         }
@@ -33,6 +35,8 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtaskHashMap.containsKey(id)){
             historyManager.add(subtaskHashMap.get(id));
             return subtaskHashMap.get(id);
+            // YELLOW
+            // Лучше выкидывать проверяемое исключение TaskNotFoundException
         } else {
             return null;
         }
@@ -43,6 +47,8 @@ public class InMemoryTaskManager implements TaskManager {
         if (epicHashMap.containsKey(id)){
             historyManager.add(epicHashMap.get(id));
             return epicHashMap.get(id);
+            // YELLOW
+            // Лучше выкидывать проверяемое исключение TaskNotFoundException
         } else {
             return null;
         }
@@ -50,6 +56,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTasksByID(long id) {
+        // YELLOW
+        // Лучше выкидывать проверяемое исключение TaskNotFoundException если задача не найдена
         taskHashMap.remove(id);
         historyManager.remove(id);
 
@@ -57,6 +65,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeSubtaskByID(long id) {
+        // YELLOW
+        // Лучше выкидывать проверяемое исключение TaskNotFoundException если задача не найдена
         Subtask subtask = subtaskHashMap.get(id);
         Epic epic = epicHashMap.get(subtask.getEpicID());
         epic.removeSubtaskByID(id);
@@ -66,6 +76,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeEpicByID(long id) {
+        // YELLOW
+        // Лучше выкидывать проверяемое исключение TaskNotFoundException если задача не найдена
         List<Subtask> epSubtasks = getSubtasksByEpicID(id);
         for (Subtask subtask : epSubtasks) {
             subtaskHashMap.remove(subtask.getID());
@@ -175,6 +187,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Subtask> getSubtasksByEpicID(long epicID) {
+        // YELLOW
+        // Лучше выкидывать проверяемое исключение TaskNotFoundException если задача не найдена
         Epic epic = epicHashMap.get(epicID);
         return new ArrayList<>(epic.getSubtasks().values());
     }
